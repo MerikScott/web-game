@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class GameWorld {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(unique = true)
