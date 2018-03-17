@@ -11,4 +11,5 @@ public interface IGameUserService {
     Optional<GameUser> tryRegister(GameUserDto dto);
 
 
+    Optional<GameUser> tryLogin(GameUserDto userData);
 }

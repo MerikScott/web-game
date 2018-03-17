@@ -11,4 +11,6 @@ public interface GameUserRepository extends CrudRepository<GameUser, Long> {
 
 //    @Query(value = "select * from gameuser where email=1?")
     GameUser getGameUserByEmail(String email);
+
+    GameUser getGameUserByEmailAndPasswordHash(String email, String passwordHash);
 }

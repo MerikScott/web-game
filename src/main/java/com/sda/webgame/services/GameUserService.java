@@ -28,4 +28,10 @@ public class GameUserService implements IGameUserService {
 
     }
 
+    @Override
+    public Optional<GameUser> tryLogin(GameUserDto userData) {
+        GameUser user = gameUserRepository.getGameUserByEmailAndPasswordHash(userData.getEmail(), userData.getPasswordHash());
+        return Optional.ofNullable(user);
+    }
+
 }

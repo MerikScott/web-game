@@ -17,6 +17,9 @@ public class GameUser {
     @JsonIgnore
     private String passwordHash;
 
+    public GameUser() {
+    }
+
     public GameUser(String email, String passwordHash) {
         this.email = email;
         this.passwordHash = passwordHash;
