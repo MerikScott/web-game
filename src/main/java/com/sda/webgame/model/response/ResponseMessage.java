@@ -13,6 +13,12 @@ public class ResponseMessage <T>{
     public ResponseMessage() {
     }
 
+    public ResponseMessage(StatusResponse status, String message, T body) {
+        this.status = status;
+        this.message = message;
+        this.body = body;
+    }
+
     public StatusResponse getStatus() {
         return status;
     }

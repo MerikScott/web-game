@@ -1,6 +1,7 @@
 package com.sda.webgame.model;
 
-import org.hibernate.annotations.Entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -12,9 +13,13 @@ public class GameUser {
 
     @Column(unique=true)
     private String email;
+
+    @JsonIgnore
     private String passwordHash;
 
-    public GameUser() {
+    public GameUser(String email, String passwordHash) {
+        this.email = email;
+        this.passwordHash = passwordHash;
     }
 
     public long getId() {

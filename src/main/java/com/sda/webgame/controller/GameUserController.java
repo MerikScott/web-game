@@ -1,13 +1,17 @@
 package com.sda.webgame.controller;
 
+import com.sda.webgame.model.GameUser;
 import com.sda.webgame.model.dto.GameUserDto;
 import com.sda.webgame.model.response.ResponseMessage;
+import com.sda.webgame.model.response.StatusResponse;
 import com.sda.webgame.services.IGameUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 public class GameUserController {
@@ -16,8 +20,15 @@ public class GameUserController {
     private IGameUserService gameUserService;
 
 
-    @RequestMapping(params = "/register", method = RequestMethod.POST)
-    public ResponseMessage registerUser(@RequestBody GameUserDto user) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseMessage<GameUser> registerUser(@RequestBody GameUserDto user) {
+        Optional<GameUser> registrationResult = gameUserService.tryRegister(user);
 
-    };
+        if(registrationResult.isPresent()) {
+            return new ResponseMessage<> (StatusResponse.OK, null, registrationResult.get());
+        }
+
+        throw new IllegalArgumentException();
+
+    }
 }
