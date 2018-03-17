@@ -7,16 +7,16 @@ import com.sda.webgame.model.factory.GameWorldFactory;
 import com.sda.webgame.model.factory.GameWorldFieldFactory;
 import com.sda.webgame.repositories.GameWorldFieldRepository;
 import com.sda.webgame.repositories.GameWorldRepository;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GameWorldService implements IGameWorldService{
+public class GameWorldService implements IGameWorldService {
 
     @Autowired
     private GameWorldRepository gameWorldRepository;
@@ -29,14 +29,14 @@ public class GameWorldService implements IGameWorldService{
         GameWorld world = null;
         try {
             world = gameWorldRepository.save(GameWorldFactory.createGameWorld(dto));
-            if (world != null) {
-                List<GameWorldField> fields = GameWorldFieldFactory.createFieldsForWorld(world);
-                gameWorldFieldRepository.save(fields);
-            }
-        } catch (DataIntegrityViolationException e) {
-            Logger.getLogger(getClass()).error("Duplicate entry name. ", e);
-        }
 
+            List<GameWorldField> fields = GameWorldFieldFactory.createFieldsForWorld(world);
+            gameWorldFieldRepository.save(fields);
+
+        } catch (DataIntegrityViolationException exception) {
+            Logger.getLogger(getClass()).error("Duplicate enrty name.", exception);
+
+        }
         return Optional.ofNullable(world);
     }
 }

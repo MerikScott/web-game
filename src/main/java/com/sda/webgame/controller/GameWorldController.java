@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path="/world/")
+@RequestMapping(path = "/world/")
 public class GameWorldController {
 
     @Autowired
     private IGameWorldService gameWorldService;
 
-    @RequestMapping(path="/create", method = RequestMethod.POST)
+    @RequestMapping(path = "/create", method = RequestMethod.POST)
     public ResponseMessage<GameWorld> createGameWorld(@RequestBody GameWorldDto dto){
         Optional<GameWorld> gameWorld = gameWorldService.createGameWorld(dto);
 
-        if(gameWorld.isPresent()) {
-            return new ResponseMessage<>(StatusResponse.OK, "World added", gameWorld.get());
+        if(gameWorld.isPresent()){
+            return new ResponseMessage<>(StatusResponse.OK, "World created and added.", gameWorld.get());
         } else {
-            return new ResponseMessage<>(StatusResponse.SERVER_ERROR, "World error", null);
+            return new ResponseMessage<>(StatusResponse.SERVER_ERROR, "Error adding world.", null);
         }
     }
 }

@@ -9,21 +9,22 @@ import java.util.List;
 import java.util.Random;
 
 public class GameWorldFieldFactory {
-    public static List<GameWorldField> createFieldsForWorld(GameWorld gameWorld) {
+    public static List<GameWorldField> createFieldsForWorld(GameWorld world){
+
         List<GameWorldField> generatedFields = new ArrayList<>();
 
-        for (int row = 0; row< gameWorld.getSizeRowsColumns(); row++) {
-            for (int column = 0; column<gameWorld.getSizeRowsColumns(); column++) {
-                generatedFields.add(generateWorldField(gameWorld, row, column));
+        for (int row = 0; row < world.getSizeRowsColumns(); row++) {
+            for (int column = 0; column < world.getSizeRowsColumns(); column++) {
+                generatedFields.add(generateWorldField(world, row, column));
             }
         }
         return generatedFields;
     }
 
-    private static GameWorldField generateWorldField(GameWorld world, int row, int column) {
+    private static GameWorldField generateWorldField(GameWorld world, int row, int column){
         int randomArrayPosition = new Random().nextInt(WorldFieldType.values().length);
-        WorldFieldType generatedFieldType = WorldFieldType.values()[randomArrayPosition];
+        WorldFieldType generatedFiledType = WorldFieldType.values()[randomArrayPosition];
 
-        return new GameWorldField(generatedFieldType, row, column, world);
+        return new GameWorldField(generatedFiledType, column, row, world);
     }
 }

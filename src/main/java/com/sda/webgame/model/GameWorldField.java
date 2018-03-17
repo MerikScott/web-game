@@ -1,30 +1,30 @@
 package com.sda.webgame.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import com.sun.deploy.xml.GeneralEntity;
+
+import javax.persistence.*;
 
 @Entity
 public class GameWorldField {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private WorldFieldType fieldType;
     private int positionColumn;
     private int positionRow;
 
     @ManyToOne
-    private GameWorld world;
+    private GameWorld gameWorld;
 
     public GameWorldField() {
     }
 
-    public GameWorldField(WorldFieldType fieldType, int positionRow, int positionColumn, GameWorld world) {
+    public GameWorldField(WorldFieldType fieldType, int positionColumn, int positionRow, GameWorld gameWorld) {
         this.fieldType = fieldType;
         this.positionColumn = positionColumn;
         this.positionRow = positionRow;
-        this.world = world;
+        this.gameWorld = gameWorld;
     }
 
     public long getId() {
@@ -59,11 +59,11 @@ public class GameWorldField {
         this.positionRow = positionRow;
     }
 
-    public GameWorld getWorld() {
-        return world;
+    public GameWorld getGameWorld() {
+        return gameWorld;
     }
 
-    public void setWorld(GameWorld world) {
-        this.world = world;
+    public void setGameWorld(GameWorld gameWorld) {
+        this.gameWorld = gameWorld;
     }
 }

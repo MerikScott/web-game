@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/user/")
+@RequestMapping(path = "/user/")
 public class GameUserController {
 
     @Autowired
@@ -29,17 +29,18 @@ public class GameUserController {
             return new ResponseMessage<> (StatusResponse.OK, null, registrationResult.get());
         }
 
-        throw new IllegalArgumentException();
+        return new ResponseMessage<> (StatusResponse.REQUEST_ERROR, "Unable to register user!", null);
 
     }
-    @RequestMapping(path = "/sign-in", method = RequestMethod.POST)
-    public ResponseMessage<GameUser>loginUser(@RequestBody GameUserDto userData) {
-        Optional<GameUser> registrationResult = gameUserService.tryLogin(userData);
 
-        if (registrationResult.isPresent()) {
-            return new ResponseMessage<>(StatusResponse.OK, "Logged in", registrationResult.get());
+    @RequestMapping(path="/sign-in", method = RequestMethod.POST)
+    public ResponseMessage<GameUser> loginUser(@RequestBody GameUserDto user) {
+        Optional<GameUser> registrationResult = gameUserService.tryLogin(user);
+
+        if(registrationResult.isPresent()) {
+            return new ResponseMessage<> (StatusResponse.OK, "Logged in", registrationResult.get());
         } else {
-            return new ResponseMessage<>(StatusResponse.REQUEST_ERROR, "Invalid login or password", null);
+            return new ResponseMessage<> (StatusResponse.REQUEST_ERROR, "Invalid user or password.", null);
         }
     }
 }

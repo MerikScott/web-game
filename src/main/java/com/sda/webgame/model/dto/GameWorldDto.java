@@ -1,15 +1,16 @@
 package com.sda.webgame.model.dto;
 
 public class GameWorldDto {
-    private String name;
-    private int SizeRowsColumns;
 
-    public GameWorldDto() {
-    }
+    private String name;
+    private int sizeRowsColumns;
 
     public GameWorldDto(String name, int sizeRowsColumns) {
         this.name = name;
-        this.SizeRowsColumns = sizeRowsColumns;
+        this.sizeRowsColumns = sizeRowsColumns;
+    }
+
+    public GameWorldDto() {
     }
 
     public String getName() {
@@ -21,10 +22,10 @@ public class GameWorldDto {
     }
 
     public int getSizeRowsColumns() {
-        return SizeRowsColumns;
+        return sizeRowsColumns;
     }
 
     public void setSizeRowsColumns(int sizeRowsColumns) {
-        SizeRowsColumns = sizeRowsColumns;
+        this.sizeRowsColumns = sizeRowsColumns;
     }
 }
