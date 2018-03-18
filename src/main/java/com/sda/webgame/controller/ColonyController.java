@@ -6,15 +6,14 @@ import com.sda.webgame.model.response.ResponseMessage;
 import com.sda.webgame.model.response.StatusResponse;
 import com.sda.webgame.services.IColonyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/colony/")
+@CrossOrigin
 public class ColonyController {
 
     @Autowired
@@ -28,6 +27,17 @@ public class ColonyController {
             return new ResponseMessage<>(StatusResponse.OK, null, createdColony.get());
         } else {
             return new ResponseMessage<>(StatusResponse.REQUEST_ERROR, "Unable to create colony", null);
+        }
+    }
+
+    @RequestMapping(path = "/get/{id}", method = RequestMethod.GET)
+    public ResponseMessage<Colony> getColony(@Param("id") Long id){
+        Optional<Colony> colony = colonyService.getColony(id);
+
+        if (colony.isPresent()) {
+            return new ResponseMessage<>(StatusResponse.OK, null, colony.get());
+        } else {
+            return new ResponseMessage<>(StatusResponse.REQUEST_ERROR, "Error while getting colony", null);
         }
     }
 }

@@ -48,9 +48,16 @@ public class ColonyService implements IColonyService {
             return Optional.empty();
         }
 
+        //all data has been validated
         Colony createdColony = colonyRepository.save(
                 ColonyFactory.create(userCreatingColony.get(), field, dto));
 
         return Optional.ofNullable(createdColony);
+    }
+
+    @Override
+    public Optional<Colony> getColony(Long id) {
+        Optional<Colony> colony = colonyRepository.getColonyById(id);
+        return Optional.empty();
     }
 }

@@ -1,7 +1,5 @@
 package com.sda.webgame.model;
 
-import com.sun.deploy.xml.GeneralEntity;
-
 import javax.persistence.*;
 
 @Entity
